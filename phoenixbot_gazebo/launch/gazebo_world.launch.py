@@ -12,102 +12,137 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-Demo for spawn_entity.
-Launches Gazebo and spawns a model
-"""
-# A bunch of software packages that are needed to launch ROS2
+"""Launch Phoenixbot in Gazebo Harmonic with ROS 2 Jazzy bridges."""
+
 import os
+
 import xacro
-from launch_ros.descriptions import ParameterValue
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
+from launch.conditions import IfCondition, UnlessCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import ThisLaunchFileDir,LaunchConfiguration, Command
+from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
-from launch_ros.substitutions import FindPackageShare
-from launch.actions import ExecuteProcess
-from ament_index_python.packages import get_package_share_directory, get_package_prefix
+
 
 def generate_launch_description():
+    gazebo_package = 'phoenixbot_gazebo'
+    description_package = 'phoenixbot_description'
 
-    pkg_prefix = 'phoenixbot'
-    pkg_gazebo = pkg_prefix + '_gazebo'
-    pkg_description = pkg_prefix + '_description'
-    robot_urdf_file = 'urdf/groundbot/phoenixbot.xacro'
+    gazebo_share = get_package_share_directory(gazebo_package)
+    description_share = get_package_share_directory(description_package)
+    ros_gz_sim_share = get_package_share_directory('ros_gz_sim')
 
-    use_sim_time = LaunchConfiguration('use_sim_time', default='True')
+    world = PathJoinSubstitution([
+        gazebo_share,
+        'worlds',
+        LaunchConfiguration('world'),
+    ])
+    xacro_file = os.path.join(
+        description_share, 'urdf', 'groundbot', 'phoenixbot.xacro')
+    bridge_config = os.path.join(gazebo_share, 'config', 'bridge.yaml')
 
-    # Use xacro to process the file
-    xacro_file = os.path.join(get_package_share_directory(pkg_description),robot_urdf_file)
-    robot_description_raw = xacro.process_file(xacro_file).toxml()
-    pkg_path = FindPackageShare(package=pkg_description).find(pkg_description)
-    urdf_model_path = os.path.join(pkg_path, robot_urdf_file)
+    robot_description = xacro.process_file(xacro_file).toxml()
+    use_sim_time = LaunchConfiguration('use_sim_time')
 
+    # Gazebo resolves model:// URIs from this path. Include the package share
+    # directories so meshes referenced by package:// are also discoverable.
+    existing_resource_path = os.environ.get('GZ_SIM_RESOURCE_PATH', '')
+    resource_paths = [
+        os.path.join(gazebo_share, 'models'),
+        gazebo_share,
+        description_share,
+        # URDF package:// meshes are converted to model://<package>/... by
+        # ros_gz_sim, so Gazebo must search the parent share directory.
+        os.path.dirname(description_share),
+    ]
+    if existing_resource_path:
+        resource_paths.insert(0, existing_resource_path)
 
-    world_file_name = 'farm_triple_row.world'
+    start_gazebo_gui = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(ros_gz_sim_share, 'launch', 'gz_sim.launch.py')),
+        launch_arguments={'gz_args': ['-r ', world]}.items(),
+        condition=UnlessCondition(LaunchConfiguration('headless')),
+    )
+    start_gazebo_headless = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(
+            os.path.join(ros_gz_sim_share, 'launch', 'gz_sim.launch.py')),
+        launch_arguments={'gz_args': ['-s -r ', world]}.items(),
+        condition=IfCondition(LaunchConfiguration('headless')),
+    )
 
-    pkg_gazebo_dir = get_package_share_directory(pkg_gazebo)
-    pkg_gazebo_install_dir = get_package_prefix(pkg_gazebo)
+    bridge = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        name='phoenixbot_bridge',
+        parameters=[{
+            'config_file': bridge_config,
+            'expand_gz_topic_names': True,
+            'use_sim_time': use_sim_time,
+        }],
+        output='screen',
+    )
 
-    pkg_description_dir = get_package_share_directory(pkg_description)
-    pkg_description_install_dir = get_package_prefix(pkg_description)
-
-    # Set the GAZEBO_MODEL_PATH to include the packages's model directory
-    world_models_path = os.path.join(pkg_gazebo_dir, 'models')
-    robot_model_path = os.path.join(pkg_description_dir, 'models')
-
-    if 'GAZEBO_MODEL_PATH' in os.environ:
-        os.environ['GAZEBO_MODEL_PATH'] = os.environ['GAZEBO_MODEL_PATH'] + ':' + pkg_gazebo_install_dir + '/share' + ':' + world_models_path
-        os.environ['GAZEBO_MODEL_PATH'] = os.environ['GAZEBO_MODEL_PATH'] + ':' + pkg_description_install_dir + '/share' + ':' + robot_model_path
-    else:
-        os.environ['GAZEBO_MODEL_PATH'] = pkg_gazebo_install_dir + '/share' + ':' + world_models_path
-        os.environ['GAZEBO_MODEL_PATH'] = os.environ['GAZEBO_MODEL_PATH'] + ':' + pkg_description_install_dir + '/share' + ':' + robot_model_path
-
-
-    print("GAZEBO_MODEL_PATH=="+str(os.environ["GAZEBO_MODEL_PATH"]))
-
-
-    world = os.path.join(pkg_gazebo_dir, 'worlds', world_file_name)
-    launch_file_dir = os.path.join(pkg_gazebo_dir, 'launch')
-
-    start_gazebo = ExecuteProcess(
-            cmd=['gazebo', '--verbose', world, '-s', 'libgazebo_ros_init.so', 
-            '-s', 'libgazebo_ros_factory.so'],
-            output='screen')
-
-
-    robot_description_config = ParameterValue(Command(['xacro ', urdf_model_path, ' sim_mode:=', use_sim_time]), value_type=str)
-    params = {'robot_description': robot_description_config, 'use_sim_time': use_sim_time}
-
-    start_robot_state_pub =  Node(
+    robot_state_publisher = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        parameters=[params]
-    )
-    
-    
-    spawn_entity = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
+        name='robot_state_publisher',
+        parameters=[{
+            'robot_description': robot_description,
+            'use_sim_time': use_sim_time,
+        }],
         output='screen',
-        arguments=['-topic', 'robot_description',
-                   '-entity', pkg_prefix,
-                   '-x', '7.03', '-y', '-1.40', '-z', '0.0',
-                   '-Y', '-3.04']
     )
 
-    start_rviz = Node(
+    spawn_robot = Node(
+        package='ros_gz_sim',
+        executable='create',
+        name='spawn_phoenixbot',
+        arguments=[
+            '-topic', 'robot_description',
+            '-name', 'phoenixbot',
+            '-x', LaunchConfiguration('x'),
+            '-y', LaunchConfiguration('y'),
+            '-z', LaunchConfiguration('z'),
+            '-Y', LaunchConfiguration('yaw'),
+        ],
+        output='screen',
+    )
+
+    rviz = Node(
         package='rviz2',
-        namespace='',
         executable='rviz2',
         name='rviz2',
-        arguments=['-d', [os.path.join(pkg_gazebo_dir, 'config', 'rviz/config.rviz')]]
+        arguments=['-d', os.path.join(gazebo_share, 'config', 'rviz', 'config.rviz')],
+        parameters=[{'use_sim_time': use_sim_time}],
+        condition=IfCondition(LaunchConfiguration('rviz')),
+        output='screen',
     )
 
     return LaunchDescription([
-        start_gazebo,
-        start_robot_state_pub,
-        spawn_entity,
-        start_rviz
+        DeclareLaunchArgument(
+            'world', default_value='farm_triple_row.world',
+            description='World file installed in phoenixbot_gazebo/worlds'),
+        DeclareLaunchArgument(
+            'use_sim_time', default_value='true',
+            description='Use the Gazebo simulation clock'),
+        DeclareLaunchArgument(
+            'headless', default_value='false',
+            description='Run Gazebo server without its GUI'),
+        DeclareLaunchArgument('x', default_value='7.03', description='Initial X position'),
+        DeclareLaunchArgument('y', default_value='-1.40', description='Initial Y position'),
+        DeclareLaunchArgument('z', default_value='0.0', description='Initial Z position'),
+        DeclareLaunchArgument('yaw', default_value='-3.04', description='Initial yaw in radians'),
+        DeclareLaunchArgument(
+            'rviz', default_value='true', description='Launch RViz2'),
+        SetEnvironmentVariable(
+            'GZ_SIM_RESOURCE_PATH', os.pathsep.join(resource_paths)),
+        start_gazebo_gui,
+        start_gazebo_headless,
+        bridge,
+        robot_state_publisher,
+        spawn_robot,
+        rviz,
     ])

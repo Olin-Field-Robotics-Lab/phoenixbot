@@ -1,68 +1,41 @@
 <?xml version="1.0" ?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-<!-- Controls the skid steer robot -->
+    <!-- Gazebo Harmonic native systems replace the Gazebo Classic ROS plugins. -->
     <gazebo>
-        <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-            <updateRate>100.0</updateRate>
-            <robotNamespace>/</robotNamespace>
-            <leftFrontJoint>front_left_wheel_joint</leftFrontJoint>
-            <rightFrontJoint>front_right_wheel_joint</rightFrontJoint>
-            <leftRearJoint>rear_left_wheel_joint</leftRearJoint>
-            <rightRearJoint>rear_right_wheel_joint</rightRearJoint>
-            <wheelSeparation>1.37</wheelSeparation>
-            <wheelDiameter>0.215</wheelDiameter>
-            <robotBaseFrame>base_link</robotBaseFrame>
-            <torque>20</torque>
-            <topicName>cmd_vel</topicName>
-            <broadcastTF>false</broadcastTF>
-        </plugin>
-
-        <plugin name='skid_steer_drive' filename='libgazebo_ros_diff_drive.so'>
-            <ros>
-            <!-- Set namespace -->
-            <namespace>/</namespace>
-
-            <!-- Remap default topics -->
-            <!-- <remapping>cmd_vel:=cmd_demo</remapping>
-            <remapping>odom:=odom_demo</remapping> -->
-            </ros>
-
-            <!-- Update rate -->
-            <update_rate>500</update_rate>
-
-            <!-- Number of wheel pairs -->
-            <num_wheel_pairs>2</num_wheel_pairs>
-
-            <!-- wheels0 -->
-            <left_joint>front_left_wheel_joint</left_joint>
-            <right_joint>front_right_wheel_joint</right_joint>
-
-            <!-- wheels1-->
-            <left_joint>rear_left_wheel_joint</left_joint>
-            <right_joint>rear_right_wheel_joint</right_joint>
-
-            <!-- kinematics -->
-            <wheel_separation>1.37</wheel_separation>
-            <wheel_separation>1.37</wheel_separation>
-
-            <wheel_diameter>0.25</wheel_diameter>
-            <wheel_diameter>0.25</wheel_diameter>
-
-            <!-- limits -->
-            <max_wheel_torque>20</max_wheel_torque>
-            <max_wheel_acceleration>1.0</max_wheel_acceleration>
-
-            <!-- output -->
-            <publish_odom>true</publish_odom>
-            <publish_odom_tf>true</publish_odom_tf>
-            <publish_wheel_tf>true</publish_wheel_tf>
-
-            <odometry_frame>odom</odometry_frame>
-            <robot_base_frame>base_link</robot_base_frame>
-
+      <plugin filename="gz-sim-diff-drive-system"
+              name="gz::sim::systems::DiffDrive">
+        <left_joint>front_left_wheel_joint</left_joint>
+        <left_joint>rear_left_wheel_joint</left_joint>
+        <right_joint>front_right_wheel_joint</right_joint>
+        <right_joint>rear_right_wheel_joint</right_joint>
+        <wheel_separation>1.36</wheel_separation>
+        <wheel_radius>0.125</wheel_radius>
+        <max_linear_acceleration>1.0</max_linear_acceleration>
+        <min_linear_acceleration>-1.0</min_linear_acceleration>
+        <max_angular_acceleration>2.0</max_angular_acceleration>
+        <min_angular_acceleration>-2.0</min_angular_acceleration>
+        <max_linear_velocity>1.0</max_linear_velocity>
+        <min_linear_velocity>-1.0</min_linear_velocity>
+        <max_angular_velocity>1.5</max_angular_velocity>
+        <min_angular_velocity>-1.5</min_angular_velocity>
+        <topic>cmd_vel</topic>
+        <odom_topic>odom</odom_topic>
+        <tf_topic>tf</tf_topic>
+        <frame_id>odom</frame_id>
+        <child_frame_id>base_link</child_frame_id>
+        <odom_publish_frequency>30</odom_publish_frequency>
       </plugin>
 
+      <plugin filename="gz-sim-joint-state-publisher-system"
+              name="gz::sim::systems::JointStatePublisher">
+        <joint_name>front_left_wheel_joint</joint_name>
+        <joint_name>front_right_wheel_joint</joint_name>
+        <joint_name>rear_left_wheel_joint</joint_name>
+        <joint_name>rear_right_wheel_joint</joint_name>
+        <topic>joint_states</topic>
+        <update_rate>30</update_rate>
+      </plugin>
     </gazebo>
 
 </robot>

@@ -79,7 +79,7 @@
         <vertices id="mesh_1-vertices">
           <input semantic="POSITION" source="#mesh_1-position" />
         </vertices>
-        <polylist material="default" count="90252">
+        <polylist material="blinn2SG" count="90252">
           <input semantic="VERTEX" source="#mesh_1-vertices" offset="0" />
           <input semantic="TEXCOORD" source="#mesh_1-texcoord" offset="1" />
           <input semantic="NORMAL" source="#mesh_1-normal" offset="2" />

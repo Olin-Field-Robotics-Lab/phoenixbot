@@ -20,11 +20,17 @@
           </mesh>
         </geometry>
         <material>
-          <script>
-            <uri>model://pine_tree/materials/scripts/</uri>
-            <uri>model://pine_tree/materials/textures/</uri>
-            <name>PineTree/Branch</name>
-          </script>
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/branch_2_diffuse.png</albedo_map>
+              <metalness>0.0</metalness>
+              <roughness>1.0</roughness>
+            </metal>
+          </pbr>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 1</emissive>
         </material>
       </visual>
       <visual name="bark">
@@ -37,11 +43,17 @@
           </mesh>
         </geometry>
         <material>
-          <script>
-            <uri>model://pine_tree/materials/scripts/</uri>
-            <uri>model://pine_tree/materials/textures/</uri>
-            <name>PineTree/Bark</name>
-          </script>
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/bark_diffuse.png</albedo_map>
+              <metalness>0.0</metalness>
+              <roughness>1.0</roughness>
+            </metal>
+          </pbr>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 1</emissive>
         </material>
       </visual>
     </link>

@@ -113,7 +113,7 @@
         <vertices id="Plane.007-vertices">
           <input semantic="POSITION" source="#Plane.007-position" />
         </vertices>
-        <polylist material="default" count="210">
+        <polylist material="Material" count="210">
           <input semantic="VERTEX" source="#Plane.007-vertices" offset="0" />
           <input semantic="NORMAL" source="#Plane.007-normal" offset="1" />
           <input semantic="TEXCOORD" source="#Plane.007-texcoord" offset="2" />

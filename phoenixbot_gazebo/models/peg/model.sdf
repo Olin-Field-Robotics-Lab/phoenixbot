@@ -54,10 +54,10 @@
           </cylinder>
         </geometry>
         <material>
-          <script>
-            <uri>file://media/materials/scripts/gazebo.material</uri>
-            <name>Gazebo/Wood</name>
-          </script>
+          <ambient>0.45 0.25 0.10 1</ambient>
+          <diffuse>0.45 0.25 0.10 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 1</emissive>
         </material>
       </visual>
 

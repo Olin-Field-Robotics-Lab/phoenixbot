@@ -28,11 +28,17 @@
                </plane>
             </geometry>
             <material>
-               <script>
-                  <uri>model://my_grass_plane/materials/scripts</uri>
-                  <uri>model://my_grass_plane/materials/textures/</uri>
-                  <name>MyGrassPlane/Image</name>
-               </script>
+               <pbr>
+                  <metal>
+                     <albedo_map>materials/textures/grass_color.jpg</albedo_map>
+                     <metalness>0.0</metalness>
+                     <roughness>1.0</roughness>
+                  </metal>
+               </pbr>
+               <ambient>1 1 1 1</ambient>
+               <diffuse>1 1 1 1</diffuse>
+               <specular>0.1 0.1 0.1 1</specular>
+               <emissive>0 0 0 1</emissive>
             </material>
          </visual>
       </link>

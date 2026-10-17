@@ -11,9 +11,9 @@
       <visual>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <geometry>
-          <mesh filename="package://phoenixbot_description//meshes/ydlidar.dae" />
+          <mesh filename="package://phoenixbot_description/meshes/ydlidar.dae" />
         </geometry>
-        <material name="">
+        <material name="ydlidar_body">
           <color rgba="0.64706 0.61961 0.58824 1" />
         </material>
       </visual>
@@ -46,11 +46,14 @@
     </joint>
 
     <gazebo reference="${name}_link">
-      <sensor type="ray" name="${name}_sensor">
+      <sensor type="gpu_lidar" name="${name}_sensor">
         <pose>0 0 0 0 0 0</pose>
+        <topic>scan</topic>
+        <gz_frame_id>${name}_link</gz_frame_id>
         <visualize>false</visualize>
+        <always_on>true</always_on>
         <update_rate>40</update_rate>
-        <ray>
+        <lidar>
           <scan>
             <horizontal>
               <samples>683</samples>
@@ -69,14 +72,7 @@
             <mean>0.0</mean>
             <stddev>0.01</stddev>
           </noise>
-        </ray>
-        <plugin name="gazebo_ros_${name}_controller" filename="libgazebo_ros_ray_sensor.so">
-          <ros>
-              <remapping>~/out:=scan</remapping>
-          </ros>
-          <output_type>sensor_msgs/LaserScan</output_type>
-          <frameName>${name}_link</frameName>
-        </plugin>
+        </lidar>
       </sensor>
     </gazebo>
   </xacro:macro>

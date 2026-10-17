@@ -20,7 +20,7 @@ The standard installation for PhoenixBot packages is local, instructions for whi
 
 ### Install Locally
 
-This system was tested on Ubuntu 22.04 LTS and ROS2 Humble.
+This system is intended for Ubuntu 24.04 LTS, ROS 2 Jazzy, and Gazebo Harmonic.
 
 #### 1. Create your ROS2 workspace and clone the repository
 
@@ -36,13 +36,13 @@ git clone https://github.com/Olin-HAIR-Lab/phoenixbot.git
 cd ~/ros2_ws
 sudo rosdep init
 rosdep update
-rosdep install --from-paths src --ignore-src --rosdistro humble -r -y
+rosdep install --from-paths src --ignore-src --rosdistro jazzy -r -y
 ```
 
 #### 3. Source the ROS installation and workspace overlay (do only once)
 
 ```bash
-echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
+echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 echo "source ~/ros2_ws/install/setup.bash" >> ~/.bashrc
 
 source ~/.bashrc
@@ -59,7 +59,7 @@ colcon build --symlink-install
 ### ROS Development Container
 
 Provides an easy setup of ROS with the Dev Container extension of VS Code.
-The setup was originally created using the [VS Code Docker Guide](https://docs.ros.org/en/humble/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html) in the ROS 2 documentation, but has been modified by [Eruvae](https://github.com/Eruvae/ROS-devcontainer) and again for our specific use-case.
+The setup was originally created using the [VS Code Docker Guide](https://docs.ros.org/en/jazzy/How-To-Guides/Setup-ROS-2-with-VSCode-and-Docker-Container.html) in the ROS 2 documentation, but has been modified by [Eruvae](https://github.com/Eruvae/ROS-devcontainer) and again for our specific use-case.
 
 #### Prerequisites
 
@@ -127,7 +127,7 @@ If everything has been installed correctly, you should see Gazebo and Rviz windo
 
 ```bash
 # first, install the dependency
-sudo apt install ros-humble-teleop-twist-keyboard
+sudo apt install ros-jazzy-teleop-twist-keyboard
 
 # run the command in a new terminal
 ros2 run teleop_twist_keyboard teleop_twist_keyboard

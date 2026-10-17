@@ -38,7 +38,7 @@
         </surface>
       </collision>
       <collision name="collision_stem">
-        <pose>0 0 0 0 0 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <cylinder>
             <radius>0.03</radius>
@@ -69,11 +69,17 @@
           </mesh>
         </geometry>
         <material>
-          <script>
-            <uri>model://lettuce_crop_01/materials/scripts/</uri>
-            <uri>model://lettuce_crop_01/materials/textures/</uri>
-            <name>lettuce_plant</name>
-          </script>
+          <pbr>
+            <metal>
+              <albedo_map>materials/textures/LettuceBibb.jpg</albedo_map>
+              <metalness>0.0</metalness>
+              <roughness>1.0</roughness>
+            </metal>
+          </pbr>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0 0 0 1</emissive>
         </material>
       </visual>
     </link>

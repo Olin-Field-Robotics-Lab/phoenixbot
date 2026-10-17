@@ -56,6 +56,9 @@
            <geometry>
                 <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
             </geometry>
+           <material name="wheel_motor_dark">
+             <color rgba="0.24 0.24 0.26 1" />
+           </material>
          </visual>
          <inertial>
             <origin xyz="0 0 0.0" rpy="0 0 0"/>
@@ -77,6 +80,9 @@
            <geometry>
                 <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
             </geometry>
+           <material name="wheel_motor_dark">
+             <color rgba="0.24 0.24 0.26 1" />
+           </material>
          </visual>
          <inertial>
             <origin xyz="0 0 0.0" rpy="0 0 0"/>
@@ -98,6 +104,9 @@
            <geometry>
                 <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
             </geometry>
+           <material name="wheel_motor_dark">
+             <color rgba="0.24 0.24 0.26 1" />
+           </material>
          </visual>
          <inertial>
             <origin xyz="0 0 0.0" rpy="0 0 0"/>
@@ -119,6 +128,9 @@
            <geometry>
                 <mesh filename="package://phoenixbot_description/meshes/wheel-motor-assy.dae"/>
             </geometry>
+           <material name="wheel_motor_dark">
+             <color rgba="0.24 0.24 0.26 1" />
+           </material>
          </visual>
          <inertial>
             <origin xyz="0 0 0.0" rpy="0 0 0"/>
