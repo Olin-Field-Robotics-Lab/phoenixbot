@@ -11,14 +11,14 @@
         <right_joint>rear_right_wheel_joint</right_joint>
         <wheel_separation>1.36</wheel_separation>
         <wheel_radius>0.125</wheel_radius>
-        <max_linear_acceleration>1.0</max_linear_acceleration>
-        <min_linear_acceleration>-1.0</min_linear_acceleration>
-        <max_angular_acceleration>2.0</max_angular_acceleration>
-        <min_angular_acceleration>-2.0</min_angular_acceleration>
-        <max_linear_velocity>1.0</max_linear_velocity>
-        <min_linear_velocity>-1.0</min_linear_velocity>
-        <max_angular_velocity>1.5</max_angular_velocity>
-        <min_angular_velocity>-1.5</min_angular_velocity>
+        <max_linear_acceleration>3.2</max_linear_acceleration>
+        <min_linear_acceleration>-3.2</min_linear_acceleration>
+        <max_angular_acceleration>3.2</max_angular_acceleration>
+        <min_angular_acceleration>-3.2</min_angular_acceleration>
+        <max_linear_velocity>2.5</max_linear_velocity>
+        <min_linear_velocity>-2.5</min_linear_velocity>
+        <max_angular_velocity>1.0</max_angular_velocity>
+        <min_angular_velocity>-1.0</min_angular_velocity>
         <topic>cmd_vel</topic>
         <odom_topic>odom</odom_topic>
         <tf_topic>tf</tf_topic>
