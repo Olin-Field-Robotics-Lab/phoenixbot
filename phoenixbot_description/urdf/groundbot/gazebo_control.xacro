@@ -36,6 +36,7 @@
         <topic>joint_states</topic>
         <update_rate>30</update_rate>
       </plugin>
+      
     </gazebo>
 
 </robot>

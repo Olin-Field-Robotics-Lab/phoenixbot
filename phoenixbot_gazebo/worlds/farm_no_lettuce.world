@@ -1,0 +1,870 @@
+<?xml version='1.0'?>
+<!-- Seed: 1023 -->
+<sdf version='1.6'>
+  <world name='default'>
+    <plugin filename="gz-sim-physics-system"
+            name="gz::sim::systems::Physics" />
+    <plugin filename="gz-sim-sensors-system"
+            name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-imu-system"
+            name="gz::sim::systems::Imu" />
+    <plugin filename="gz-sim-user-commands-system"
+            name="gz::sim::systems::UserCommands" />
+    <plugin filename="gz-sim-scene-broadcaster-system"
+            name="gz::sim::systems::SceneBroadcaster" />
+
+	<!-- Navsat plugin -->
+	<plugin filename="gz-sim-navsat-system"
+			name="gz::sim::systems::NavSat">
+	</plugin>
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0.0 0.0 1000 -0.35 -0.5 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation>
+        <range>1000</range>
+        <constant>0.9</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type='adiabatic' />
+
+    <physics name='default_physics' default='1' type='ignored'>
+      <max_step_size>0.005</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>200</real_time_update_rate>
+    </physics>
+
+    <!-- <physics type="ode">
+      <ode>
+        <solver> -->
+          <!-- IMPORTANT for skid steering to properly work -->
+          <!-- <friction_model>cone_model</friction_model>
+          <island_threads>6</island_threads>
+        </solver>
+      </ode>
+    </physics> -->
+
+    <scene>
+      <ambient>0.9 0.9 0.9 1</ambient>
+      <sky>
+        <clouds>
+          <speed>8</speed>
+        </clouds>
+      </sky>
+      <grid>false</grid>
+
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>1</shadows>
+    </scene>
+<!-- estimated coordinates for olin -->
+	<spherical_coordinates>
+	<surface_model>EARTH_WGS84</surface_model>
+	<world_frame_orientation>ENU</world_frame_orientation>
+	<latitude_deg>42.293575</latitude_deg>
+	<longitude_deg>-71.264178</longitude_deg>
+	<elevation>45</elevation> 
+	<heading_deg>0</heading_deg>
+	</spherical_coordinates>
+
+    <!-- <include>
+      <uri>model://runway</uri>
+      <pose>0 9.15 0.05 0 0 1.571428571</pose>
+      <static>true</static>
+    </include> -->
+
+    <!-- <include>
+      <uri>model://pickup</uri>
+      <pose>10 -5 0.1 0 0 -1.571428571</pose>
+      <static>true</static>
+    </include> -->
+
+    <include>
+      <uri>model://pine_tree</uri>
+      <pose>-0.5 4 0 0 0 0</pose>
+      <name>pine_tree_00</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://pine_tree</uri>
+      <pose>1.0 4 0 0 0 0</pose>
+      <name>pine_tree_01</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://pine_tree</uri>
+      <pose>2.5 4 0 0 0 0</pose>
+      <name>pine_tree_02</name>
+      <static>true</static>
+    </include>
+
+    <!-- <include>
+      <uri>model://pine_tree</uri>
+      <pose>4.0 4 0 0 0 0</pose>
+      <name>pine_tree_03</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://pine_tree</uri>
+      <pose>5.5 4 0 0 0 0</pose>
+      <name>pine_tree_04</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://oak_tree</uri>
+      <pose>-11 -12 0 0 0 0</pose>
+      <name>oak_tree_01</name>
+      <static>true</static>
+    </include> -->
+
+    <!-- <include>
+      <uri>model://farmland</uri>
+      <pose>0 0 0 0 0 0</pose>
+      <static>true</static>
+    </include> -->
+
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>0 0 0.03 0 0 0</pose>
+      <name>ground_00</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>-5 0 0.03 0 0 0</pose>
+      <name>ground_01</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>0 -5 0.03 0 0 0</pose>
+      <name>ground_02</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>5 0 0.03 0 0 0</pose>
+      <name>ground_03</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>0 5 0.03 0 0 0</pose>
+      <name>ground_04</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>-5 -5 0.03 0 0 0</pose>
+      <name>ground_05</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>5 -5 0.03 0 0 0</pose>
+      <name>ground_06</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>-10 0 0.03 0 0 0</pose>
+      <name>ground_07</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>5 5 0.03 0 0 0</pose>
+      <name>ground_08</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>-10 5 0.03 0 0 0</pose>
+      <name>ground_09</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>-5 5 0.03 0 0 0</pose>
+      <name>ground_10</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>-10 -10 0.03 0 0 0</pose>
+      <name>ground_11</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>-5 -10 0.03 0 0 0</pose>
+      <name>ground_12</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>0 -10 0.03 0 0 0</pose>
+      <name>ground_13</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>5 -10 0.03 0 0 0</pose>
+      <name>ground_14</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>-10 -5 0.03 0 0 0</pose>
+      <name>ground_15</name>
+      <static>true</static>
+    </include>
+
+    <!-- <include>
+      <uri>model://my_ground_plane</uri>
+      <pose>5 -10 0.03 0 0 0</pose>
+      <name>ground_16</name>
+      <static>true</static>
+    </include> -->
+
+    <include>
+      <uri>model://my_grass_plane</uri>
+      <pose>0 0 -0.05 0 0 0</pose>
+      <static>true</static>
+    </include>
+
+    <!-- <include>
+      <uri>model://small_peg</uri>
+      <pose>3.474487 -5.820211 0 0 0 0</pose>
+      <name>small_peg_02</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://small_peg</uri>
+      <pose>-1.042011 -2.181731 0 0 0 0</pose>
+      <name>small_peg_01</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://peg</uri>
+      <pose>6.220254 -1.292501 0 0 0 0</pose>
+      <name>peg_01</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://peg</uri>
+      <pose>-4.078598 -1.934470 0 0 0 0</pose>
+      <name>peg_02</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://peg</uri>
+      <pose>-4.033242 -3.331391 0 0 0 0</pose>
+      <name>peg_03</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://peg</uri>
+      <pose>6.010706 -2.987494 0 0 0 0</pose>
+      <name>peg_04</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://peg</uri>
+      <pose>5.974026 -4.387251 0 0 0 0</pose>
+      <name>peg_05</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://peg</uri>
+      <pose>-4.092475 -4.913312 0 0 0 0</pose>
+      <name>peg_06</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://peg</uri>
+      <pose>-4.004834 -6.444205 0 0 0 0</pose>
+      <name>peg_07</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://peg</uri>
+      <pose>6.035331 -6.000935 0 0 0 0</pose>
+      <name>peg_08</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://guide</uri>
+      <pose>0 5.5 0.1 0 0 1.571428571</pose>
+      <name>guide_01</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://guide</uri>
+      <pose>0 12.75 0.1 0 0 1.571428571</pose>
+      <name>guide_02</name>
+      <static>true</static>
+    </include> -->
+
+    <!-- <include>
+      <uri>model://barn_collision</uri>
+      <pose>-19 -2 0.3 0 0 0</pose>
+      <name>barn_00</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://barn_collision</uri>
+      <pose>-19 20 0.3 0 0 3.1427</pose>
+      <name>barn_01</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://barn_collision</uri>
+      <pose>-40 20 0.3 0 0 3.1427</pose>
+      <name>barn_02</name>
+      <static>true</static>
+    </include> -->
+
+    <!-- <include>
+      <uri>model://barn_collision</uri>
+      <pose>2 20 0.3 0 0 3.1427</pose>
+      <name>barn_03</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://barn_collision</uri>
+      <pose>-40 -10 0.3 0 0 1.571428571</pose>
+      <name>barn_04</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://barn_collision</uri>
+      <pose>-40 -31 0.3 0 0 1.571428571</pose>
+      <name>barn_05</name>
+      <static>true</static>
+    </include> -->
+
+    <!-- <include>
+      <uri>model://lamp_post</uri>
+      <pose>0 13 0 0 0 0</pose>
+      <name>lamp_post_00</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-20 13 0 0 0 0</pose>
+      <name>lamp_post_01</name>
+      <static>true</static>
+    </include>
+
+    <include>
+      <uri>model://lamp_post</uri>
+      <pose>-40 13 0 0 0 0</pose>
+      <name>lamp_post_02</name>
+      <static>true</static>
+    </include> -->
+
+    <!-- <include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-10.008953299196286 -5.0 0.1 0 0 0</pose>
+		<name>lettuce_0_0</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-9.46443331119612 -4.940895958667732 0.1 0 0 0</pose>
+		<name>lettuce_0_1</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-9.009342077062119 -4.887071505320993 0.1 0 0 0</pose>
+		<name>lettuce_0_2</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-8.546736544180561 -4.843334618074503 0.1 0 0 0</pose>
+		<name>lettuce_0_3</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-8.032786729960003 -4.813592182806555 0.1 0 0 0</pose>
+		<name>lettuce_0_4</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-7.5250214433615605 -4.800501002679189 0.1 0 0 0</pose>
+		<name>lettuce_0_5</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-6.982931949459999 -4.805230473824361 0.1 0 0 0</pose>
+		<name>lettuce_0_6</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-6.4609669114073 -4.827358126670225 0.1 0 0 0</pose>
+		<name>lettuce_0_7</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-6.032907449759744 -4.8649073638897695 0.1 0 0 0</pose>
+		<name>lettuce_0_8</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-5.515000803509528 -4.914524023953234 0.1 0 0 0</pose>
+		<name>lettuce_0_9</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-5.046665948994064 -4.9717759983880265 0.1 0 0 0</pose>
+		<name>lettuce_0_10</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-4.481408152441949 -5.03154913882865 0.1 0 0 0</pose>
+		<name>lettuce_0_11</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-4.003001997350342 -5.08850408865897 0.1 0 0 0</pose>
+		<name>lettuce_0_12</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-3.491851687595234 -5.137553231836795 0.1 0 0 0</pose>
+		<name>lettuce_0_13</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-3.0218737274711946 -5.174315154482717 0.1 0 0 0</pose>
+		<name>lettuce_0_14</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-2.471924105333836 -5.195506023533019 0.1 0 0 0</pose>
+		<name>lettuce_0_15</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-2.0460077785698405 -5.199232921767168 0.1 0 0 0</pose>
+		<name>lettuce_0_16</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-1.5082410041473544 -5.185162936465547 0.1 0 0 0</pose>
+		<name>lettuce_0_17</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-0.9834823398515857 -5.154552897511198 0.1 0 0 0</pose>
+		<name>lettuce_0_18</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-0.5374405319056961 -5.1101371085195275 0.1 0 0 0</pose>
+		<name>lettuce_0_19</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>0.011944222449292552 -5.055883099639785 0.1 0 0 0</pose>
+		<name>lettuce_0_20</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>0.523695358819822 -4.99663721990313 0.1 0 0 0</pose>
+		<name>lettuce_0_21</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>1.0432847379988832 -4.937691727297325 0.1 0 0 0</pose>
+		<name>lettuce_0_22</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>1.4548414657296698 -4.88431204712236 0.1 0 0 0</pose>
+		<name>lettuce_0_23</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>2.0454962126771825 -4.8412664272301695 0.1 0 0 0</pose>
+		<name>lettuce_0_24</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-9.976684334169363 -4.67 0.1 0 0 0</pose>
+		<name>lettuce_1_0</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-9.542662015018223 -4.610895958667732 0.1 0 0 0</pose>
+		<name>lettuce_1_1</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-9.044057841115483 -4.557071505320993 0.1 0 0 0</pose>
+		<name>lettuce_1_2</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-8.474962274369238 -4.513334618074503 0.1 0 0 0</pose>
+		<name>lettuce_1_3</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-8.033796096269892 -4.483592182806555 0.1 0 0 0</pose>
+		<name>lettuce_1_4</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-7.46648759107295 -4.470501002679189 0.1 0 0 0</pose>
+		<name>lettuce_1_5</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-7.030049744996968 -4.475230473824361 0.1 0 0 0</pose>
+		<name>lettuce_1_6</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-6.546798945815986 -4.497358126670225 0.1 0 0 0</pose>
+		<name>lettuce_1_7</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-6.039661568762101 -4.5349073638897694 0.1 0 0 0</pose>
+		<name>lettuce_1_8</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-5.517423972978563 -4.584524023953234 0.1 0 0 0</pose>
+		<name>lettuce_1_9</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-5.0485404270925915 -4.6417759983880265 0.1 0 0 0</pose>
+		<name>lettuce_1_10</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-4.5170013332373395 -4.70154913882865 0.1 0 0 0</pose>
+		<name>lettuce_1_11</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-4.005934918855784 -4.75850408865897 0.1 0 0 0</pose>
+		<name>lettuce_1_12</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-3.482450737222959 -4.807553231836795 0.1 0 0 0</pose>
+		<name>lettuce_1_13</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-2.9834291554386723 -4.844315154482717 0.1 0 0 0</pose>
+		<name>lettuce_1_14</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-2.5494368045774576 -4.865506023533019 0.1 0 0 0</pose>
+		<name>lettuce_1_15</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-1.9535744572388305 -4.869232921767168 0.1 0 0 0</pose>
+		<name>lettuce_1_16</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-1.5159092222812267 -4.855162936465547 0.1 0 0 0</pose>
+		<name>lettuce_1_17</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-0.9636609570940574 -4.8245528975111975 0.1 0 0 0</pose>
+		<name>lettuce_1_18</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-0.4597907602904581 -4.7801371085195274 0.1 0 0 0</pose>
+		<name>lettuce_1_19</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-0.0475867158020356 -4.725883099639785 0.1 0 0 0</pose>
+		<name>lettuce_1_20</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>0.4936408877633783 -4.66663721990313 0.1 0 0 0</pose>
+		<name>lettuce_1_21</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>0.9778392585508513 -4.607691727297325 0.1 0 0 0</pose>
+		<name>lettuce_1_22</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>1.5198206816638038 -4.55431204712236 0.1 0 0 0</pose>
+		<name>lettuce_1_23</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>1.9968981061432645 -4.5112664272301695 0.1 0 0 0</pose>
+		<name>lettuce_1_24</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-10.014171035187628 -4.34 0.1 0 0 0</pose>
+		<name>lettuce_2_0</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-9.461082847587834 -4.280895958667732 0.1 0 0 0</pose>
+		<name>lettuce_2_1</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-9.042850131543139 -4.227071505320993 0.1 0 0 0</pose>
+		<name>lettuce_2_2</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-8.494294791682899 -4.183334618074503 0.1 0 0 0</pose>
+		<name>lettuce_2_3</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-8.045582608279531 -4.1535921828065545 0.1 0 0 0</pose>
+		<name>lettuce_2_4</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-7.455965777609399 -4.140501002679189 0.1 0 0 0</pose>
+		<name>lettuce_2_5</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-6.953349006777504 -4.145230473824361 0.1 0 0 0</pose>
+		<name>lettuce_2_6</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-6.472825331404437 -4.167358126670225 0.1 0 0 0</pose>
+		<name>lettuce_2_7</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-6.003217384126096 -4.204907363889769 0.1 0 0 0</pose>
+		<name>lettuce_2_8</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-5.455838486266409 -4.254524023953234 0.1 0 0 0</pose>
+		<name>lettuce_2_9</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-5.00000559247044 -4.311775998388026 0.1 0 0 0</pose>
+		<name>lettuce_2_10</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-4.47432916025669 -4.37154913882865 0.1 0 0 0</pose>
+		<name>lettuce_2_11</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-4.027067815762078 -4.42850408865897 0.1 0 0 0</pose>
+		<name>lettuce_2_12</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-3.5214412228175815 -4.4775532318367945 0.1 0 0 0</pose>
+		<name>lettuce_2_13</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-2.990793325622791 -4.514315154482717 0.1 0 0 0</pose>
+		<name>lettuce_2_14</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-2.4822144196436264 -4.535506023533019 0.1 0 0 0</pose>
+		<name>lettuce_2_15</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-1.9917201485502412 -4.539232921767168 0.1 0 0 0</pose>
+		<name>lettuce_2_16</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-1.4589828945245995 -4.525162936465547 0.1 0 0 0</pose>
+		<name>lettuce_2_17</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-0.9793793407021668 -4.4945528975111975 0.1 0 0 0</pose>
+		<name>lettuce_2_18</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>-0.5141821095482049 -4.450137108519527 0.1 0 0 0</pose>
+		<name>lettuce_2_19</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>-0.02505958116379712 -4.395883099639785 0.1 0 0 0</pose>
+		<name>lettuce_2_20</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>0.459665484619014 -4.33663721990313 0.1 0 0 0</pose>
+		<name>lettuce_2_21</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>0.9588923595513292 -4.2776917272973245 0.1 0 0 0</pose>
+		<name>lettuce_2_22</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_02</uri>
+		<pose>1.5499224285613653 -4.22431204712236 0.1 0 0 0</pose>
+		<name>lettuce_2_23</name>
+		<static>true</static>
+	</include>
+	<include>
+		<uri>model://lettuce_crop_01</uri>
+		<pose>2.029658628543556 -4.181266427230169 0.1 0 0 0</pose>
+		<name>lettuce_2_24</name>
+		<static>true</static>
+	</include> -->
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose frame=''>13.420930 -4.105510 4.599320 -0.000001 0.331643 3.056189</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
+  </world>
+</sdf>
